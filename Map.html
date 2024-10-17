@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antananarivo Bus Stops Map</title>
+  <!-- Link to Leaflet.js CSS for maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    /* Make the map take up the entire screen */
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bus Stops in Antananarivo</h1>
+  <div id="map"></div>
+
+  <!-- Link to Leaflet.js JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Step 1: Initialize the map centered on Antananarivo
+    var map = L.map('map').setView([-18.8792, 47.5079], 13);  // Center on Antananarivo
+
+    // Step 2: Add OpenStreetMap layer (the map tiles)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Step 3: Add bus stop markers
+    var busStops = [
+      { name: "Analakely Bus Stop", coordinates: [-18.9137, 47.5164], lines: ["193", "154"] },
+      { name: "Antanimena Bus Stop", coordinates: [-18.9173, 47.5202], lines: ["151", "166"] },
+      { name: "Isotry Bus Stop", coordinates: [-18.9091, 47.5154], lines: ["120", "194"] },
+      { name: "Andravoahangy Bus Stop", coordinates: [-18.9052, 47.5185], lines: ["137", "167"] }
+    ];
+
+    // Step 4: Loop through each bus stop and add a marker to the map
+    busStops.forEach(function (stop) {
+      L.marker(stop.coordinates).addTo(map)
+        .bindPopup(`<b>${stop.name}</b><br>Bus Lines: ${stop.lines.join(', ')}`);
+    });
+  </script>
+</body>
+</html>
